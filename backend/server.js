@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import connectToMongoBD from "./db/connectToMongoDB.js";
+import friendRoutes from "./routes/friends.routes.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/friend", friendRoutes);
 
 app.listen(port, () => {
   connectToMongoBD();

@@ -53,9 +53,14 @@ export const getMessages = async (req, res) => {
     }).populate("messages");
 
     if (!conversation) {
-      return res.status(200).json({ message: "Conversation not found" });
+      return res
+        .status(404)
+        .json({
+          message:
+            "No chats yet! Start a new conversation and break the silence!",
+        });
     }
-    const messages = conversation.messages;
+    const messages = conversation.messages || [];
     res.status(200).json(messages);
   } catch (error) {
     console.log("Error in getMessages controller", error.message);
