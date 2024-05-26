@@ -7,7 +7,7 @@ const Message = ({ message }) => {
   const { selectedConversation } = useConversation();
 
   const fromMe = authUser._id === message.senderId;
-  
+
   const classChat = fromMe ? "chat chat-end" : "chat chat-start";
 
   const classChatBubble = fromMe ? "bg-blue-500" : "bg-slate-700";
@@ -18,6 +18,8 @@ const Message = ({ message }) => {
 
   const formattedTime = extractTime(message.createdAt);
 
+  const slideClass = message.shouldSlide ? "slide-in-right" : "";
+
   return (
     <div className={`${classChat}`}>
       <div className="chat-image avatar">
@@ -25,7 +27,9 @@ const Message = ({ message }) => {
           <img alt="Tailwind CSS chat bubble component" src={profilePic} />
         </div>
       </div>
-      <div className={`chat-bubble text-white ${classChatBubble}`}>
+      <div
+        className={`chat-bubble text-white ${classChatBubble} ${slideClass}`}
+      >
         {message.message}
       </div>
       <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">

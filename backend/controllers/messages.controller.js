@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
-
+import { getReceiverSocketId } from "../socket/socket.js";
+import { io } from "../socket/socket.js";
 const { ObjectId } = mongoose.Types;
 export const sendMessage = async (req, res) => {
   try {
@@ -36,12 +37,21 @@ export const sendMessage = async (req, res) => {
 
     await Promise.all([conversation.save(), newMessage.save()]); // both happen at te same time
 
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    
+    if (receiverSocketId) {
+
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
+
     res.status(201).json(newMessage);
   } catch (error) {
     console.log("Error in sendMessage controller", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
 
 export const getMessages = async (req, res) => {
   try {

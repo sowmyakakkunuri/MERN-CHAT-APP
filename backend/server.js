@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
+import { app, server } from "./socket/socket.js";
+
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
@@ -10,7 +12,6 @@ import friendRoutes from "./routes/friends.routes.js";
 
 dotenv.config();
 
-const app = express();
 const port = process.env.PORT;
 
 app.get("/", (req, res) => {
@@ -25,8 +26,8 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/friend", friendRoutes);
 
-app.listen(port, () => {
+server.listen(port, () => {
   connectToMongoBD();
-  
+
   console.log(`Server running on port ${port}`);
 });

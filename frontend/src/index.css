@@ -34,3 +34,21 @@ body {
   /* scrollbar-width: thin; Makes the scrollbar narrower */
   scrollbar-color: #201e1e; /* Thumb color and track color */
 }
+
+
+/* SLIDE IN ANIMATION FOR INCOMING MESSAGES */
+.slide-in-right {
+  animation: slide-in-right 0.5s ease-out both;
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
