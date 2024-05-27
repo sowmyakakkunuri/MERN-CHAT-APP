@@ -55,9 +55,12 @@ export const login = async (req, res) => {
     const { userName, password } = req.body;
     const user = await User.findOne({ userName });
     console.log(user);
-    const isPasswordValid = await bcrypt.compare(password, user?.password || "");
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      user?.password || ""
+    );
 
-    if( !user || !isPasswordValid) {
+    if (!user || !isPasswordValid) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
@@ -68,9 +71,8 @@ export const login = async (req, res) => {
       userName: user.userName,
       gender: user.gender,
       profilePic: user.profilePic,
-    })
-
-  } catch {
+    });
+  } catch (error) {
     console.log("Error in login controller", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
@@ -82,8 +84,7 @@ export const logout = (req, res) => {
       maxAge: 0,
     });
     res.status(200).json({ message: "Logged out successfully" });
-  }
-  catch (error) {
+  } catch (error) {
     console.log("Error in logout controller", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
