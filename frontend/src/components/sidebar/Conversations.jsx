@@ -8,7 +8,7 @@ const Conversations = () => {
     <div className="flex py-2 flex-col overflow-auto">
       {conversations.length === 0 && !loading && (
         <div className="px-4 text-center sm-text-sm md:text-lg text-gray-200 font-semibold flex flex-col items-center gap-2">
-          Start your first Chat ✨ ! Go to settings .. Add a friend ❄!
+          Start your first Chat ✨!Go to settings .. Add a friend ❄!
         </div>
       )}
       {conversations.map((conversation, idx) => (
